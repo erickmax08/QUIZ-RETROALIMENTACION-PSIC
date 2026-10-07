@@ -9,7 +9,7 @@
 <style>
 
 /* =========================================================
-   BASE
+   CONFIGURACIÓN GENERAL
 ========================================================= */
 
 *{
@@ -23,185 +23,275 @@ html{
 body{
     margin:0;
     min-height:100vh;
+
     font-family:"Segoe UI", Arial, sans-serif;
-    color:#172b4d;
+
+    color:#172653;
+
     overflow-x:hidden;
 
+    /* FONDO EXTERIOR CELESTE DIFUMINADO */
     background:
-        radial-gradient(circle at 8% 18%, rgba(255,255,255,.75) 0 80px, transparent 81px),
-        radial-gradient(circle at 92% 12%, rgba(255,255,255,.55) 0 110px, transparent 111px),
-        radial-gradient(circle at 15% 90%, rgba(255,255,255,.45) 0 100px, transparent 101px),
-        linear-gradient(135deg,#fff4e8,#f9ded5 48%,#f1e7dd);
+
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(255,255,255,.75) 0 90px,
+            transparent 200px
+        ),
+
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(255,255,255,.60) 0 100px,
+            transparent 240px
+        ),
+
+        radial-gradient(
+            circle at 70% 10%,
+            rgba(177,225,255,.65),
+            transparent 330px
+        ),
+
+        linear-gradient(
+            135deg,
+            #bfe9ff 0%,
+            #d8f3ff 35%,
+            #b8e2f7 70%,
+            #d6f2ff 100%
+        );
+
+    background-attachment:fixed;
 }
 
 
 /* =========================================================
-   FORMAS ANIMADAS DEL FONDO
+   DECORACIONES EXTERIORES
 ========================================================= */
 
-.bg-shape{
+.bg-circle{
     position:fixed;
-    z-index:0;
-    pointer-events:none;
+
     border-radius:50%;
+
+    pointer-events:none;
+
+    z-index:0;
+
+    filter:blur(3px);
+
     opacity:.45;
-    filter:blur(1px);
+
+    animation:flotar 8s ease-in-out infinite;
 }
 
-.shape1{
-    width:150px;
-    height:150px;
-    background:#ffd8df;
-    left:-60px;
-    top:35%;
-    animation:flotar1 8s ease-in-out infinite;
+.circle1{
+    width:190px;
+    height:190px;
+
+    left:-80px;
+    top:12%;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffffff,
+            rgba(255,255,255,.1)
+        );
 }
 
-.shape2{
-    width:100px;
-    height:100px;
-    background:#dce9fa;
-    right:4%;
-    top:42%;
-    animation:flotar2 7s ease-in-out infinite;
+.circle2{
+    width:130px;
+    height:130px;
+
+    right:5%;
+    top:20%;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffffff,
+            rgba(255,255,255,.05)
+        );
+
+    animation-delay:2s;
 }
 
-.shape3{
-    width:75px;
-    height:75px;
-    background:#ffe5bc;
-    left:10%;
-    bottom:5%;
-    animation:flotar3 9s ease-in-out infinite;
+.circle3{
+    width:240px;
+    height:240px;
+
+    right:-100px;
+    bottom:-80px;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffffff,
+            rgba(255,255,255,.05)
+        );
+
+    animation-delay:4s;
 }
 
-@keyframes flotar1{
+@keyframes flotar{
+
     0%,100%{
-        transform:translate(0,0);
+        transform:translateY(0);
     }
-    50%{
-        transform:translate(25px,-35px);
-    }
-}
 
-@keyframes flotar2{
-    0%,100%{
-        transform:translate(0,0);
-    }
     50%{
-        transform:translate(-20px,30px);
+        transform:translateY(-22px);
     }
-}
 
-@keyframes flotar3{
-    0%,100%{
-        transform:translate(0,0) rotate(0);
-    }
-    50%{
-        transform:translate(30px,-20px) rotate(30deg);
-    }
 }
 
 
 /* =========================================================
-   CONTENEDOR
+   CONTENEDOR GRANDE MORADO
 ========================================================= */
 
 .container{
+
     position:relative;
+
     z-index:1;
 
     width:94%;
+
     max-width:1180px;
 
     margin:28px auto;
 
-    background:rgba(255,255,255,.92);
-
-    border:3px solid #172f55;
-
-    border-radius:32px;
-
     padding:30px;
 
+    border-radius:34px;
+
+    border:3px solid rgba(255,255,255,.75);
+
+    /*
+       MORADO DIFUMINADO
+    */
+
+    background:
+
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(255,255,255,.34),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(231,195,255,.35),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            rgba(123,82,180,.90),
+            rgba(143,103,196,.88),
+            rgba(102,76,166,.91)
+        );
+
     box-shadow:
-        0 25px 60px rgba(24,47,85,.18),
-        0 5px 15px rgba(24,47,85,.08);
+
+        0 30px 70px rgba(53,39,105,.30),
+
+        inset 0 1px 0 rgba(255,255,255,.75);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
 
     overflow:hidden;
 }
 
 
-/* =========================================================
-   CABECERA / HERO
-========================================================= */
+/* brillo interno */
 
-.hero{
-    position:relative;
+.container::before{
 
-    text-align:center;
-
-    padding:15px 10px 25px;
-
-    overflow:hidden;
-}
-
-.hero::before{
     content:"";
+
     position:absolute;
 
-    width:280px;
-    height:280px;
+    width:400px;
+    height:400px;
+
+    top:-230px;
+    right:-130px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(244,180,193,.28),
+            rgba(255,255,255,.28),
             transparent 70%
         );
-
-    left:50%;
-    top:-180px;
-
-    transform:translateX(-50%);
 
     pointer-events:none;
 }
 
-.hero-icon{
+
+/* =========================================================
+   CABECERA
+========================================================= */
+
+.hero{
+
     position:relative;
 
-    display:inline-flex;
+    text-align:center;
+
+    padding:8px 10px 25px;
+
+    color:white;
+
+}
+
+
+/* icono */
+
+.hero-icon{
+
+    display:flex;
 
     align-items:center;
     justify-content:center;
 
-    width:82px;
-    height:82px;
+    width:86px;
+    height:86px;
 
-    margin-bottom:8px;
+    margin:0 auto 10px;
 
-    border-radius:27px;
+    border-radius:28px;
 
-    font-size:48px;
+    font-size:49px;
 
     background:
+
         linear-gradient(
             145deg,
-            #fff1f5,
-            #e6eefb
+            rgba(255,255,255,.55),
+            rgba(255,255,255,.18)
         );
 
+    border:2px solid rgba(255,255,255,.55);
+
     box-shadow:
-        0 10px 22px rgba(24,47,85,.13);
+
+        0 12px 25px rgba(55,30,100,.20),
+
+        inset 0 1px 0 rgba(255,255,255,.75);
 
     animation:
-        heroFloat 3s ease-in-out infinite;
+        cerebro 3s ease-in-out infinite;
+
 }
 
-@keyframes heroFloat{
+@keyframes cerebro{
 
     0%,100%{
         transform:translateY(0) rotate(-2deg);
@@ -210,12 +300,18 @@ body{
     50%{
         transform:translateY(-9px) rotate(2deg);
     }
+
 }
 
-.hero h1{
-    margin:8px 0 4px;
 
-    font-size:clamp(30px,5vw,48px);
+/* título */
+
+.hero h1{
+
+    margin:5px 0;
+
+    font-size:
+        clamp(30px,5vw,48px);
 
     line-height:1.05;
 
@@ -223,75 +319,87 @@ body{
 
     letter-spacing:-1px;
 
-    color:#172f55;
+    text-shadow:
+        0 4px 12px rgba(50,25,90,.25);
+
 }
 
 .hero h1 span{
-    color:#d24f68;
+
+    color:#ffd1e0;
+
 }
 
+
+/* institución */
+
 .hero-school{
-    margin:10px 0 3px;
+
+    margin:12px 0 3px;
+
+    font-size:16px;
 
     font-weight:700;
 
-    color:#3f526f;
+    color:#ffffff;
 
-    font-size:16px;
 }
+
+
+/* área */
 
 .hero-area{
+
     margin:0;
 
-    color:#778399;
+    color:#eee5ff;
 
     font-size:15px;
+
 }
 
+
+/* mensaje */
+
 .hero-message{
+
     max-width:650px;
 
-    margin:16px auto 0;
+    margin:15px auto 0;
 
-    color:#52627a;
+    color:#f7f0ff;
 
     font-size:16px;
 
     line-height:1.5;
+
 }
 
 
-/* =========================================================
-   DECORACIÓN
-========================================================= */
+/* línea */
 
 .color-line{
-    width:115px;
+
+    width:120px;
+
     height:6px;
 
-    margin:17px auto 0;
+    margin:16px auto 0;
 
     border-radius:20px;
 
     background:
+
         linear-gradient(
             90deg,
-            #172f55,
-            #d24f68,
-            #f1a45c
+            #bfe9ff,
+            #ffd1e0,
+            #fff0bb
         );
 
-    animation:lineGrow .8s ease;
-}
+    box-shadow:
+        0 2px 10px rgba(255,255,255,.30);
 
-@keyframes lineGrow{
-    from{
-        width:0;
-    }
-
-    to{
-        width:115px;
-    }
 }
 
 
@@ -300,19 +408,27 @@ body{
 ========================================================= */
 
 .search-area{
-    margin:12px auto 20px;
 
-    max-width:900px;
+    max-width:920px;
+
+    margin:8px auto 20px;
+
 }
+
 
 .search-wrapper{
+
     position:relative;
+
 }
 
+
 .search-icon{
+
     position:absolute;
 
     left:20px;
+
     top:50%;
 
     transform:translateY(-50%);
@@ -320,40 +436,64 @@ body{
     font-size:22px;
 
     pointer-events:none;
+
 }
 
+
 .search-box{
+
     width:100%;
 
-    height:58px;
+    height:60px;
 
-    padding:0 20px 0 56px;
+    padding:
+        0 20px 0 57px;
 
-    border:2px solid #dce3ed;
+    border:none;
 
-    border-radius:18px;
+    border-radius:19px;
 
-    background:white;
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.96),
+            rgba(255,242,248,.93)
+        );
+
+    color:#38245c;
 
     font-size:16px;
-
-    color:#172f55;
 
     outline:none;
 
     box-shadow:
-        0 7px 20px rgba(24,47,85,.07);
+
+        0 10px 25px rgba(48,25,90,.18),
+
+        inset 0 1px 0 white;
 
     transition:.25s;
+
 }
+
+
+.search-box::placeholder{
+
+    color:#8a7b9d;
+
+}
+
 
 .search-box:focus{
 
-    border-color:#d24f68;
+    transform:translateY(-2px);
 
     box-shadow:
-        0 0 0 4px rgba(210,79,104,.10),
-        0 10px 25px rgba(24,47,85,.10);
+
+        0 15px 30px rgba(48,25,90,.22),
+
+        0 0 0 4px rgba(255,209,224,.35);
 
 }
 
@@ -372,31 +512,36 @@ body{
 
     gap:15px;
 
-    max-width:1050px;
+    max-width:1080px;
 
     margin:25px auto 18px;
 
+    color:white;
+
 }
+
 
 .quiz-heading-left h2{
 
     margin:0;
 
-    font-size:24px;
+    font-size:25px;
 
-    color:#172f55;
+    font-weight:900;
 
 }
 
+
 .quiz-heading-left p{
 
-    margin:4px 0 0;
+    margin:5px 0 0;
 
-    color:#7a879a;
+    color:#eee4ff;
 
     font-size:14px;
 
 }
+
 
 .counter{
 
@@ -408,20 +553,25 @@ body{
 
     gap:8px;
 
-    padding:10px 17px;
+    padding:10px 18px;
 
     border-radius:30px;
 
-    background:#edf3fb;
+    color:#43265e;
 
-    border:1px solid #d5e1f0;
+    font-weight:900;
 
-    color:#172f55;
+    background:
 
-    font-weight:800;
+        linear-gradient(
+            135deg,
+            #fff3f7,
+            #e5f6ff
+        );
 
     box-shadow:
-        0 4px 10px rgba(24,47,85,.06);
+
+        0 8px 18px rgba(43,23,80,.20);
 
 }
 
@@ -439,7 +589,7 @@ body{
 
     gap:24px;
 
-    max-width:1050px;
+    max-width:1080px;
 
     margin:0 auto;
 
@@ -447,16 +597,14 @@ body{
 
 
 /* =========================================================
-   TARJETAS
+   TARJETAS ROSADAS
 ========================================================= */
 
 .quiz-card{
 
-    --accent:#d24f68;
-
     position:relative;
 
-    min-height:365px;
+    min-height:375px;
 
     display:flex;
 
@@ -464,49 +612,80 @@ body{
 
     align-items:center;
 
-    justify-content:flex-start;
-
     text-align:center;
 
-    padding:31px 22px 25px;
+    padding:32px 22px 25px;
 
-    border-radius:26px;
+    border-radius:28px;
 
-    border:2px solid #dce3ed;
+    border:2px solid rgba(255,255,255,.90);
+
+    /*
+       ROSADO DIFUMINADO
+    */
 
     background:
+
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(255,255,255,.75),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(255,189,216,.35),
+            transparent 40%
+        ),
+
         linear-gradient(
             145deg,
-            #ffffff 0%,
-            #f8fafc 100%
+            #ffdce8,
+            #f8c7dc,
+            #ffe6ef
         );
 
     box-shadow:
-        0 8px 20px rgba(24,47,85,.08);
+
+        0 12px 25px rgba(53,28,89,.20),
+
+        inset 0 1px 0 rgba(255,255,255,.90);
 
     overflow:hidden;
 
     opacity:0;
 
-    transform:translateY(22px);
+    transform:
+        translateY(25px)
+        scale(.96);
 
     animation:
-        cardAppear .65s ease forwards;
+        aparecer .65s ease forwards;
 
     transition:
+
         transform .28s ease,
+
         box-shadow .28s ease,
-        border-color .28s ease;
+
+        filter .28s ease;
+
 }
+
 
 .quiz-card:hover{
 
-    transform:translateY(-10px) scale(1.015);
-
-    border-color:var(--accent);
+    transform:
+        translateY(-10px)
+        scale(1.025);
 
     box-shadow:
-        0 20px 38px rgba(24,47,85,.16);
+
+        0 22px 40px rgba(53,28,89,.28),
+
+        0 0 0 3px rgba(255,255,255,.50);
+
+    filter:saturate(1.05);
 
 }
 
@@ -519,24 +698,25 @@ body{
 
     position:absolute;
 
-    top:0;
     left:0;
     right:0;
+    top:0;
 
-    height:7px;
+    height:8px;
 
     background:
+
         linear-gradient(
             90deg,
-            #172f55,
-            var(--accent),
-            #f1a45c
+            #7353a6,
+            #e85f8d,
+            #ffb7c9
         );
 
 }
 
 
-/* decoración circular */
+/* círculo decorativo */
 
 .quiz-card::after{
 
@@ -544,87 +724,33 @@ body{
 
     position:absolute;
 
-    width:130px;
-    height:130px;
+    width:160px;
+    height:160px;
 
-    right:-70px;
-    bottom:-70px;
+    right:-90px;
+    bottom:-90px;
 
     border-radius:50%;
 
     background:
-        radial-gradient(
-            circle,
-            var(--accent),
-            transparent 70%
-        );
-
-    opacity:.10;
-
-    pointer-events:none;
+        rgba(255,255,255,.38);
 
 }
 
 
 /* =========================================================
-   ICONO DE CADA QUIZ
-========================================================= */
-
-.quiz-icon{
-
-    position:relative;
-
-    width:94px;
-    height:94px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    margin:8px auto 19px;
-
-    border-radius:30px;
-
-    font-size:49px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fff4f6,
-            #edf3fc
-        );
-
-    box-shadow:
-        0 9px 18px rgba(24,47,85,.10);
-
-    transition:.3s;
-
-}
-
-.quiz-card:hover .quiz-icon{
-
-    transform:
-        translateY(-4px)
-        rotate(-3deg)
-        scale(1.06);
-
-}
-
-
-/* =========================================================
-   NÚMERO / ETIQUETA
+   NÚMERO
 ========================================================= */
 
 .quiz-number{
 
     position:absolute;
 
-    top:17px;
+    top:18px;
     right:18px;
 
-    min-width:31px;
-    height:31px;
+    width:34px;
+    height:34px;
 
     display:flex;
 
@@ -633,7 +759,13 @@ body{
 
     border-radius:50%;
 
-    background:#172f55;
+    background:
+
+        linear-gradient(
+            135deg,
+            #65459a,
+            #9b65bb
+        );
 
     color:white;
 
@@ -642,7 +774,60 @@ body{
     font-weight:900;
 
     box-shadow:
-        0 4px 8px rgba(24,47,85,.16);
+        0 5px 10px rgba(57,29,90,.20);
+
+}
+
+
+/* =========================================================
+   ICONO
+========================================================= */
+
+.quiz-icon{
+
+    width:98px;
+    height:98px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    margin:
+        7px auto 18px;
+
+    border-radius:31px;
+
+    font-size:51px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.90),
+            rgba(255,238,246,.75)
+        );
+
+    border:
+        2px solid rgba(255,255,255,.85);
+
+    box-shadow:
+
+        0 10px 20px rgba(91,43,101,.15),
+
+        inset 0 1px 0 white;
+
+    transition:.3s;
+
+}
+
+
+.quiz-card:hover .quiz-icon{
+
+    transform:
+        translateY(-5px)
+        rotate(-4deg)
+        scale(1.07);
 
 }
 
@@ -653,17 +838,18 @@ body{
 
 .quiz-card h2{
 
-    margin:0 0 15px;
+    margin:
+        0 auto 15px;
 
     max-width:300px;
 
-    color:#172f55;
+    color:#42275f;
 
     font-size:21px;
 
     line-height:1.25;
 
-    font-weight:850;
+    font-weight:900;
 
 }
 
@@ -677,25 +863,31 @@ body{
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
-    min-height:34px;
+    min-height:35px;
 
-    padding:7px 15px;
+    padding:
+        7px 16px;
 
     border-radius:30px;
 
-    background:#172f55;
+    background:
+
+        linear-gradient(
+            135deg,
+            #68489b,
+            #8d5caf
+        );
 
     color:white;
 
     font-size:13px;
 
-    font-weight:700;
+    font-weight:800;
 
     box-shadow:
-        0 5px 10px rgba(24,47,85,.15);
+        0 6px 12px rgba(68,35,101,.20);
 
 }
 
@@ -709,20 +901,19 @@ body{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     gap:8px;
 
-    width:190px;
+    width:195px;
 
-    min-height:49px;
+    min-height:51px;
 
     margin-top:auto;
 
     padding:12px 20px;
 
-    border-radius:15px;
+    border-radius:16px;
 
     text-decoration:none;
 
@@ -732,55 +923,67 @@ body{
 
     font-weight:900;
 
-    letter-spacing:.2px;
-
     background:
+
         linear-gradient(
             135deg,
-            #172f55,
-            #315783
+            #563a86,
+            #7751a5
         );
 
     box-shadow:
-        0 8px 16px rgba(24,47,85,.20);
+
+        0 9px 17px rgba(55,28,90,.25);
 
     transition:.22s;
 
 }
 
+
 .quiz-button:hover{
 
-    transform:scale(1.055);
+    transform:
+        scale(1.06);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #694899,
+            #9263b9
+        );
 
     box-shadow:
-        0 11px 20px rgba(24,47,85,.25);
+        0 13px 23px rgba(55,28,90,.30);
 
 }
 
+
 .quiz-button:active{
 
-    transform:scale(.97);
+    transform:
+        scale(.97);
 
 }
 
 
 /* =========================================================
-   ANIMACIÓN DE TARJETAS
+   ANIMACIÓN
 ========================================================= */
 
-@keyframes cardAppear{
+@keyframes aparecer{
 
-    0%{
+    from{
 
         opacity:0;
 
         transform:
             translateY(25px)
-            scale(.96);
+            scale(.94);
 
     }
 
-    100%{
+    to{
 
         opacity:1;
 
@@ -805,9 +1008,12 @@ body{
 
     padding:55px 20px;
 
-    color:#69788f;
+    color:white;
+
+    font-size:17px;
 
 }
+
 
 .loading-icon{
 
@@ -821,6 +1027,7 @@ body{
         girar 1.2s linear infinite;
 
 }
+
 
 @keyframes girar{
 
@@ -845,13 +1052,16 @@ body{
 
     border-radius:25px;
 
-    background:#f7f9fc;
+    color:white;
 
-    border:2px dashed #d7dfe9;
+    background:
+        rgba(255,255,255,.16);
 
-    color:#68768a;
+    border:
+        2px dashed rgba(255,255,255,.55);
 
 }
+
 
 .no-results-icon{
 
@@ -874,32 +1084,31 @@ body{
 
     border-radius:22px;
 
-    background:#fff1f4;
+    color:#542844;
 
-    border:1px solid #f2c7d0;
-
-    color:#983b50;
+    background:#ffe4ed;
 
 }
 
 
 /* =========================================================
-   PIE
+   FOOTER
 ========================================================= */
 
 .footer{
 
-    max-width:1050px;
+    max-width:1080px;
 
     margin:35px auto 0;
 
     padding-top:23px;
 
-    border-top:1px solid #e0e5ec;
+    border-top:
+        1px solid rgba(255,255,255,.35);
 
     text-align:center;
 
-    color:#78859a;
+    color:#eee4ff;
 
     font-size:14px;
 
@@ -907,9 +1116,10 @@ body{
 
 }
 
+
 .footer strong{
 
-    color:#172f55;
+    color:white;
 
 }
 
@@ -918,17 +1128,16 @@ body{
    TABLET
 ========================================================= */
 
-@media(max-width:900px){
+@media(max-width:950px){
 
     .container{
 
         width:95%;
 
-        padding:25px;
-
-        margin:18px auto;
+        padding:24px;
 
     }
+
 
     .quiz-grid{
 
@@ -937,17 +1146,11 @@ body{
 
     }
 
-    .quiz-card{
-
-        min-height:355px;
-
-    }
-
 }
 
 
 /* =========================================================
-   CELULAR / TABLET PEQUEÑA
+   TABLET PEQUEÑA / CELULAR
 ========================================================= */
 
 @media(max-width:650px){
@@ -956,28 +1159,24 @@ body{
 
         width:94%;
 
+        margin:15px auto;
+
         padding:18px;
 
-        border-radius:25px;
+        border-radius:27px;
 
     }
 
-    .hero{
-
-        padding-top:5px;
-
-    }
 
     .hero-icon{
 
-        width:70px;
-        height:70px;
+        width:72px;
+        height:72px;
 
         font-size:40px;
 
-        border-radius:22px;
-
     }
+
 
     .hero h1{
 
@@ -985,11 +1184,13 @@ body{
 
     }
 
+
     .hero-message{
 
         font-size:14px;
 
     }
+
 
     .quiz-heading{
 
@@ -999,11 +1200,6 @@ body{
 
     }
 
-    .quiz-heading-left h2{
-
-        font-size:22px;
-
-    }
 
     .quiz-grid{
 
@@ -1011,9 +1207,8 @@ body{
 
     }
 
-    .quiz-card{
 
-        width:100%;
+    .quiz-card{
 
         min-height:350px;
 
@@ -1023,14 +1218,12 @@ body{
 
 
 /* =========================================================
-   ANIMACIÓN REDUCIDA
+   REDUCIR ANIMACIONES SI EL DISPOSITIVO LO SOLICITA
 ========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
-    *,
-    *::before,
-    *::after{
+    *{
 
         animation-duration:.01ms !important;
 
@@ -1049,19 +1242,21 @@ body{
 <body>
 
 
-<!-- FORMAS DEL FONDO -->
+<!-- DECORACIONES DEL FONDO -->
 
-<div class="bg-shape shape1"></div>
-<div class="bg-shape shape2"></div>
-<div class="bg-shape shape3"></div>
+<div class="bg-circle circle1"></div>
+<div class="bg-circle circle2"></div>
+<div class="bg-circle circle3"></div>
 
+
+<!-- CONTENEDOR PRINCIPAL -->
 
 <div class="container">
 
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
+    <!-- ==============================================
+         CABECERA
+    =============================================== -->
 
     <section class="hero">
 
@@ -1069,32 +1264,46 @@ body{
             🧠
         </div>
 
+
         <h1>
-            Quiz de <span>Retroalimentación</span>
+            Quiz de
+            <span>Retroalimentación</span>
         </h1>
+
 
         <p class="hero-school">
             I.E. N° 84165 "ASTERIA CASTRO PAREJA"
         </p>
 
+
         <p class="hero-area">
             Área de Psicología / Tutoría
         </p>
 
+
         <div class="color-line"></div>
 
+
         <p class="hero-message">
-            Aprende, demuestra lo que sabes y descubre cuánto has aprendido.
+
+            Aprende, demuestra lo que sabes
+            y descubre cuánto has aprendido.
+
             <br>
-            <strong>¡Elige tu reto y comienza!</strong>
+
+            <strong>
+                ✨ ¡Elige tu reto y comienza!
+            </strong>
+
         </p>
 
     </section>
 
 
-    <!-- =====================================================
+
+    <!-- ==============================================
          BUSCADOR
-    ====================================================== -->
+    =============================================== -->
 
     <section class="search-area">
 
@@ -1103,6 +1312,7 @@ body{
             <span class="search-icon">
                 🔎
             </span>
+
 
             <input
                 type="text"
@@ -1117,9 +1327,10 @@ body{
     </section>
 
 
-    <!-- =====================================================
-         ENCABEZADO DE QUIZZES
-    ====================================================== -->
+
+    <!-- ==============================================
+         ENCABEZADO
+    =============================================== -->
 
     <div class="quiz-heading">
 
@@ -1146,9 +1357,10 @@ body{
     </div>
 
 
-    <!-- =====================================================
-         QUIZZES
-    ====================================================== -->
+
+    <!-- ==============================================
+         TARJETAS
+    =============================================== -->
 
     <div
         id="quizGrid"
@@ -1168,9 +1380,10 @@ body{
     </div>
 
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
+
+    <!-- ==============================================
+         PIE
+    =============================================== -->
 
     <footer class="footer">
 
@@ -1184,9 +1397,7 @@ body{
 
         <br>
 
-        <span>
-            ✨ Aprende • Reflexiona • Ponlo en práctica
-        </span>
+        ✨ Aprende • Reflexiona • Ponlo en práctica
 
     </footer>
 
@@ -1194,10 +1405,11 @@ body{
 </div>
 
 
+
 <script>
 
 /* =========================================================
-   CONFIGURACIÓN DEL REPOSITORIO
+   REPOSITORIO
 ========================================================= */
 
 const USUARIO =
@@ -1215,7 +1427,7 @@ let quizzes = [];
 
 
 /* =========================================================
-   ARCHIVOS QUE NO SON QUIZZES
+   ARCHIVOS EXCLUIDOS
 ========================================================= */
 
 const archivosExcluidos = [
@@ -1226,10 +1438,6 @@ const archivosExcluidos = [
 
 ];
 
-
-/*
-   PALABRAS QUE IDENTIFICAN ARCHIVOS DE PRUEBA
-*/
 
 const palabrasPrueba = [
 
@@ -1249,7 +1457,7 @@ const palabrasPrueba = [
 
 
 /* =========================================================
-   CARGAR AUTOMÁTICAMENTE LOS QUIZZES
+   CARGAR QUIZZES AUTOMÁTICAMENTE
 ========================================================= */
 
 async function cargarQuizzes(){
@@ -1284,54 +1492,55 @@ async function cargarQuizzes(){
             await respuesta.json();
 
 
-        /*
-           BUSCAR TODOS LOS HTML
-        */
-
         const archivosHTML =
-            archivos.filter(archivo => {
+            archivos.filter(
+                archivo => {
 
-                const nombre =
-                    archivo.name.toLowerCase();
-
-
-                const esHTML =
-                    nombre.endsWith(".html");
+                    const nombre =
+                        archivo.name.toLowerCase();
 
 
-                const excluido =
-                    archivosExcluidos.includes(nombre);
+                    const esHTML =
+                        nombre.endsWith(".html");
 
 
-                const esPrueba =
-                    palabrasPrueba.some(
-                        palabra =>
-                            nombre.includes(palabra)
+                    const excluido =
+                        archivosExcluidos
+                        .includes(nombre);
+
+
+                    const esPrueba =
+                        palabrasPrueba.some(
+                            palabra =>
+                                nombre.includes(palabra)
+                        );
+
+
+                    return (
+
+                        archivo.type === "file"
+
+                        &&
+
+                        esHTML
+
+                        &&
+
+                        !excluido
+
+                        &&
+
+                        !esPrueba
+
                     );
 
-
-                return (
-
-                    archivo.type === "file"
-
-                    &&
-
-                    esHTML
-
-                    &&
-
-                    !excluido
-
-                    &&
-
-                    !esPrueba
-
-                );
-
-            });
+                }
+            );
 
 
-        if(archivosHTML.length === 0){
+        if(
+            archivosHTML.length === 0
+        ){
 
             grid.innerHTML = `
 
@@ -1346,24 +1555,22 @@ async function cargarQuizzes(){
                     </h3>
 
                     <p>
-                        Sube tu primer archivo HTML al repositorio.
+                        Sube tu primer archivo HTML.
                     </p>
 
                 </div>
 
             `;
 
+
             cantidad.innerHTML =
                 "📚 0 quizzes";
+
 
             return;
 
         }
 
-
-        /*
-           LEER INFORMACIÓN DE CADA QUIZ
-        */
 
         quizzes =
             await Promise.all(
@@ -1387,12 +1594,6 @@ async function cargarQuizzes(){
                             );
 
 
-                        let color =
-                            seleccionarColor(
-                                archivo.name
-                            );
-
-
                         try{
 
                             const htmlURL =
@@ -1405,15 +1606,13 @@ async function cargarQuizzes(){
                                 );
 
 
-                            if(htmlRespuesta.ok){
+                            if(
+                                htmlRespuesta.ok
+                            ){
 
                                 const texto =
                                     await htmlRespuesta.text();
 
-
-                                /*
-                                   METADATO: TÍTULO
-                                */
 
                                 const tituloMeta =
                                     texto.match(
@@ -1421,33 +1620,15 @@ async function cargarQuizzes(){
                                     );
 
 
-                                /*
-                                   METADATO: GRADO
-                                */
-
                                 const gradoMeta =
                                     texto.match(
                                         /<meta[^>]+name=["']quiz-grade["'][^>]+content=["']([^"']+)["']/i
                                     );
 
 
-                                /*
-                                   METADATO: ICONO
-                                */
-
                                 const iconoMeta =
                                     texto.match(
                                         /<meta[^>]+name=["']quiz-icon["'][^>]+content=["']([^"']+)["']/i
-                                    );
-
-
-                                /*
-                                   METADATO: COLOR
-                                */
-
-                                const colorMeta =
-                                    texto.match(
-                                        /<meta[^>]+name=["']quiz-color["'][^>]+content=["']([^"']+)["']/i
                                     );
 
 
@@ -1471,14 +1652,6 @@ async function cargarQuizzes(){
 
                                     icono =
                                         iconoMeta[1];
-
-                                }
-
-
-                                if(colorMeta){
-
-                                    color =
-                                        colorMeta[1];
 
                                 }
 
@@ -1510,16 +1683,12 @@ async function cargarQuizzes(){
                             icono:
                                 icono,
 
-                            color:
-                                color,
-
                             url:
                                 archivo.name
 
                         };
 
                     }
-
                 )
 
             );
@@ -1580,7 +1749,7 @@ async function cargarQuizzes(){
 
 
 /* =========================================================
-   MOSTRAR LAS TARJETAS
+   MOSTRAR QUIZZES
 ========================================================= */
 
 function mostrarQuizzes(lista){
@@ -1636,7 +1805,6 @@ function mostrarQuizzes(lista){
             <article
                 class="quiz-card"
                 style="
-                    --accent:${quiz.color};
                     animation-delay:${index * .12}s;
                 "
             >
@@ -1647,18 +1815,14 @@ function mostrarQuizzes(lista){
 
 
                 <div class="quiz-icon">
-
                     ${quiz.icono}
-
                 </div>
 
 
                 <h2>
-
                     ${escapeHTML(
                         quiz.titulo
                     )}
-
                 </h2>
 
 
@@ -1679,8 +1843,7 @@ function mostrarQuizzes(lista){
                     )}"
                 >
 
-                    ▶
-                    COMENZAR
+                    ▶ COMENZAR QUIZ
 
                 </a>
 
@@ -1854,86 +2017,7 @@ function seleccionarIcono(nombre){
 
 
 /* =========================================================
-   COLORES AUTOMÁTICOS
-========================================================= */
-
-function seleccionarColor(nombre){
-
-    const texto =
-        nombre.toLowerCase();
-
-
-    if(
-        texto.includes("decidir")
-        ||
-        texto.includes("decision")
-    ){
-
-        return "#e6a23c";
-
-    }
-
-
-    if(
-        texto.includes("alcohol")
-        ||
-        texto.includes("cuid")
-        ||
-        texto.includes("paso")
-    ){
-
-        return "#4f8fa8";
-
-    }
-
-
-    if(
-        texto.includes("enamor")
-        ||
-        texto.includes("amistad")
-    ){
-
-        return "#d95b79";
-
-    }
-
-
-    if(
-        texto.includes("cuerpo")
-        ||
-        texto.includes("limite")
-    ){
-
-        return "#7a70c8";
-
-    }
-
-
-    if(
-        texto.includes("inclus")
-    ){
-
-        return "#55a878";
-
-    }
-
-
-    if(
-        texto.includes("respeto")
-    ){
-
-        return "#d27a43";
-
-    }
-
-
-    return "#d24f68";
-
-}
-
-
-/* =========================================================
-   LIMPIAR NOMBRE DEL ARCHIVO
+   LIMPIAR NOMBRE
 ========================================================= */
 
 function limpiarNombre(nombre){
