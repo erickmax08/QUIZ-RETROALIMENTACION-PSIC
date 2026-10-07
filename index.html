@@ -3,471 +3,1417 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Quiz de Retroalimentación</title>
 
 <style>
+
+/* ================================
+   CONFIGURACIÓN GENERAL
+================================ */
+
 *{
     box-sizing:border-box;
 }
 
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    background:linear-gradient(135deg,#f7efe5,#f5d9d0);
     min-height:100vh;
-    color:#263238;
+    font-family:"Segoe UI", Arial, sans-serif;
+    color:#172b4d;
+    background:
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,.8) 0 35px, transparent 36px),
+        radial-gradient(circle at 90% 20%, rgba(255,255,255,.7) 0 25px, transparent 26px),
+        linear-gradient(135deg,#fff4e9 0%,#f9dfd5 48%,#f5e9dd 100%);
+    overflow-x:hidden;
 }
 
+
+/* ================================
+   DECORACIONES DEL FONDO
+================================ */
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+}
+
+body::before{
+    width:220px;
+    height:220px;
+    background:rgba(255,255,255,.35);
+    top:80px;
+    left:-80px;
+    animation:flotar 7s ease-in-out infinite;
+}
+
+body::after{
+    width:280px;
+    height:280px;
+    background:rgba(255,255,255,.25);
+    bottom:-120px;
+    right:-100px;
+    animation:flotar2 9s ease-in-out infinite;
+}
+
+@keyframes flotar{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-18px) rotate(8deg);}
+}
+
+@keyframes flotar2{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(20px);}
+}
+
+
+/* ================================
+   CONTENEDOR PRINCIPAL
+================================ */
+
 .container{
+    position:relative;
+    z-index:1;
+
     width:92%;
     max-width:1100px;
-    margin:30px auto;
-    background:white;
-    border:4px solid #182b49;
-    border-radius:24px;
-    padding:30px;
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+    margin:35px auto;
+
+    background:rgba(255,255,255,.94);
+
+    border:4px solid #182f55;
+    border-radius:30px;
+
+    padding:32px;
+
+    box-shadow:
+        0 18px 45px rgba(24,47,85,.18),
+        0 3px 10px rgba(0,0,0,.08);
+
+    overflow:hidden;
 }
+
+
+/* ================================
+   CABECERA
+================================ */
 
 .header{
     text-align:center;
-    margin-bottom:25px;
+    margin-bottom:28px;
+}
+
+.brain{
+    display:inline-block;
+    font-size:54px;
+
+    animation:
+        flotarCerebro 3s ease-in-out infinite;
+
+    filter:drop-shadow(0 5px 5px rgba(0,0,0,.12));
+}
+
+@keyframes flotarCerebro{
+    0%,100%{
+        transform:translateY(0) rotate(-3deg);
+    }
+
+    50%{
+        transform:translateY(-8px) rotate(3deg);
+    }
 }
 
 .header h1{
-    margin:5px 0;
-    color:#182b49;
-    font-size:36px;
+    margin:5px 0 4px;
+
+    font-size:clamp(28px,4vw,42px);
+
+    font-weight:800;
+
+    color:#182f55;
+}
+
+.header h1 span{
+    color:#d24f68;
 }
 
 .header p{
-    margin:5px 0;
-    color:#666;
-    font-size:17px;
+    margin:4px 0;
+
+    color:#667085;
+
+    font-size:16px;
+}
+
+.header .institution{
+    font-weight:600;
+    color:#354765;
+}
+
+
+/* ================================
+   DECORACIÓN BAJO CABECERA
+================================ */
+
+.header-line{
+    width:90px;
+    height:5px;
+
+    margin:15px auto 0;
+
+    border-radius:10px;
+
+    background:linear-gradient(
+        90deg,
+        #182f55,
+        #d24f68,
+        #f1a35b
+    );
+
+    animation:expandir 2s ease;
+}
+
+@keyframes expandir{
+    from{
+        width:0;
+    }
+
+    to{
+        width:90px;
+    }
+}
+
+
+/* ================================
+   BUSCADOR
+================================ */
+
+.search-wrapper{
+    position:relative;
+    margin:25px 0 18px;
+}
+
+.search-icon{
+    position:absolute;
+
+    left:18px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:21px;
+
+    pointer-events:none;
 }
 
 .search-box{
     width:100%;
-    padding:14px 18px;
-    border:2px solid #ddd;
-    border-radius:15px;
+
+    padding:16px 20px 16px 52px;
+
+    border:2px solid #dce2eb;
+
+    border-radius:17px;
+
+    background:#fff;
+
     font-size:16px;
-    margin-bottom:25px;
+
+    color:#172b4d;
+
     outline:none;
+
+    transition:.25s;
+
+    box-shadow:0 4px 12px rgba(24,47,85,.06);
 }
 
 .search-box:focus{
-    border-color:#182b49;
+    border-color:#d24f68;
+
+    box-shadow:
+        0 0 0 4px rgba(210,79,104,.10),
+        0 5px 15px rgba(24,47,85,.08);
 }
+
+
+/* ================================
+   CONTADOR
+================================ */
 
 .info{
     text-align:center;
-    margin-bottom:20px;
-    font-weight:bold;
-    color:#555;
+
+    margin:18px 0 25px;
 }
+
+.contador{
+    display:inline-flex;
+
+    align-items:center;
+    gap:8px;
+
+    padding:9px 17px;
+
+    border-radius:30px;
+
+    background:#edf3fb;
+
+    color:#182f55;
+
+    font-weight:700;
+
+    border:1px solid #d6e0ef;
+
+    box-shadow:0 3px 8px rgba(24,47,85,.07);
+}
+
+
+/* ================================
+   TARJETAS
+================================ */
 
 .quiz-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(250px,1fr));
+
+    gap:22px;
 }
+
+
+/* ================================
+   TARJETA INDIVIDUAL
+================================ */
 
 .quiz-card{
-    background:linear-gradient(145deg,#fff,#f5f7fa);
-    border:2px solid #d9dee7;
-    border-radius:20px;
-    padding:25px;
+    position:relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f7f9fc
+        );
+
+    border:2px solid #dce3ed;
+
+    border-radius:22px;
+
+    padding:25px 20px 22px;
+
     text-align:center;
-    transition:.25s;
-    box-shadow:0 5px 12px rgba(0,0,0,.08);
+
+    overflow:hidden;
+
+    box-shadow:
+        0 7px 18px rgba(24,47,85,.08);
+
+    opacity:0;
+
+    animation:
+        aparecer .55s ease forwards;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
 }
+
+
+/* línea decorativa superior */
+
+.quiz-card::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:6px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #182f55,
+            #d24f68,
+            #f1a35b
+        );
+}
+
+
+/* brillo */
+
+.quiz-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.65);
+
+    top:-45px;
+    right:-30px;
+
+    pointer-events:none;
+}
+
 
 .quiz-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 10px 20px rgba(0,0,0,.15);
-    border-color:#182b49;
+    transform:translateY(-8px);
+
+    border-color:#b9c7db;
+
+    box-shadow:
+        0 16px 30px rgba(24,47,85,.16);
 }
+
+
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* ================================
+   ICONO
+================================ */
 
 .quiz-icon{
-    font-size:50px;
-    margin-bottom:10px;
+    width:76px;
+    height:76px;
+
+    margin:10px auto 14px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:22px;
+
+    font-size:40px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff1f4,
+            #eaf1fb
+        );
+
+    box-shadow:
+        0 6px 14px rgba(24,47,85,.10);
+
+    animation:
+        iconoEntrada .7s ease;
 }
 
-.quiz-card h2{
-    color:#182b49;
-    font-size:21px;
-    margin:10px 0;
+@keyframes iconoEntrada{
+    from{
+        opacity:0;
+        transform:scale(.7) rotate(-8deg);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) rotate(0);
+    }
 }
+
+
+/* ================================
+   TÍTULO
+================================ */
+
+.quiz-card h2{
+    margin:8px auto 12px;
+
+    max-width:280px;
+
+    color:#172f54;
+
+    font-size:20px;
+
+    line-height:1.25;
+
+    font-weight:800;
+}
+
+
+/* ================================
+   GRADO
+================================ */
 
 .quiz-grade{
     display:inline-block;
-    background:#182b49;
-    color:white;
+
     padding:7px 14px;
+
     border-radius:20px;
-    font-size:14px;
-    margin-bottom:18px;
+
+    background:#182f55;
+
+    color:white;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    box-shadow:
+        0 4px 8px rgba(24,47,85,.16);
 }
 
+
+/* ================================
+   BOTÓN
+================================ */
+
 .quiz-button{
-    display:inline-block;
-    text-decoration:none;
-    background:#182b49;
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+
+    margin-top:18px;
+
+    min-height:46px;
+
+    padding:12px 23px;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #182f55,
+            #294d7c
+        );
+
     color:white;
-    padding:12px 25px;
-    border-radius:12px;
-    font-weight:bold;
+
+    text-decoration:none;
+
+    font-weight:800;
+
+    font-size:14px;
+
+    box-shadow:
+        0 6px 12px rgba(24,47,85,.20);
+
     transition:.2s;
 }
 
 .quiz-button:hover{
-    background:#29466f;
-    transform:scale(1.03);
+    transform:scale(1.04);
+
+    box-shadow:
+        0 9px 17px rgba(24,47,85,.25);
 }
+
+.quiz-button:active{
+    transform:scale(.97);
+}
+
+
+/* ================================
+   CARGANDO
+================================ */
 
 .loading{
+    grid-column:1/-1;
+
     text-align:center;
-    padding:40px;
-    font-size:18px;
-    color:#666;
+
+    padding:45px;
+
+    color:#667085;
+
+    font-size:17px;
 }
 
-.error{
-    text-align:center;
-    padding:30px;
-    color:#a33;
-    background:#fff0f0;
-    border-radius:15px;
+.loading-icon{
+    display:block;
+
+    font-size:38px;
+
+    margin-bottom:10px;
+
+    animation:girar 1.2s linear infinite;
 }
+
+@keyframes girar{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* ================================
+   SIN RESULTADOS
+================================ */
 
 .no-results{
+    grid-column:1/-1;
+
     text-align:center;
-    padding:30px;
-    color:#666;
+
+    padding:40px;
+
+    background:#f7f9fc;
+
+    border-radius:20px;
+
+    color:#667085;
 }
+
+
+/* ================================
+   ERROR
+================================ */
+
+.error{
+    grid-column:1/-1;
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#9b3349;
+
+    background:#fff0f3;
+
+    border:1px solid #f2c5cf;
+
+    border-radius:18px;
+}
+
+
+/* ================================
+   PIE
+================================ */
 
 .footer{
     text-align:center;
+
     margin-top:35px;
-    padding-top:20px;
-    border-top:1px solid #ddd;
-    color:#666;
+
+    padding-top:22px;
+
+    border-top:1px solid #e0e4ea;
+
+    color:#697586;
+
     font-size:14px;
+
+    line-height:1.5;
 }
 
-@media(max-width:600px){
+.footer strong{
+    color:#182f55;
+}
+
+
+/* ================================
+   MÓVIL / TABLET
+================================ */
+
+@media(max-width:700px){
+
     .container{
-        width:95%;
-        padding:20px;
-        margin:15px auto;
+        width:94%;
+
+        margin:18px auto;
+
+        padding:22px;
+
+        border-radius:24px;
     }
 
     .header h1{
-        font-size:28px;
+        font-size:30px;
+    }
+
+    .quiz-grid{
+        grid-template-columns:1fr;
+    }
+
+    .quiz-card{
+        max-width:450px;
+        width:100%;
+        margin:auto;
     }
 }
+
+
+/* ================================
+   ANIMACIÓN REDUCIDA
+================================ */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
+    <!-- =========================
+         CABECERA
+    ========================== -->
+
     <div class="header">
-        <h1>🧠 Quiz de Retroalimentación</h1>
-        <p>I.E. N° 84165 "ASTERIA CASTRO PAREJA"</p>
-        <p>Área de Psicología / Tutoría</p>
+
+        <div class="brain">
+            🧠
+        </div>
+
+        <h1>
+            Quiz de <span>Retroalimentación</span>
+        </h1>
+
+        <p class="institution">
+            I.E. N° 84165 "ASTERIA CASTRO PAREJA"
+        </p>
+
+        <p>
+            Área de Psicología / Tutoría
+        </p>
+
+        <div class="header-line"></div>
+
     </div>
 
-    <input
-        type="text"
-        id="search"
-        class="search-box"
-        placeholder="🔎 Buscar un quiz..."
-        oninput="filtrarQuizzes()"
-    >
+
+    <!-- =========================
+         BUSCADOR
+    ========================== -->
+
+    <div class="search-wrapper">
+
+        <span class="search-icon">
+            🔎
+        </span>
+
+        <input
+            type="text"
+            id="search"
+            class="search-box"
+            placeholder="Buscar un quiz..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- =========================
+         CONTADOR
+    ========================== -->
 
     <div class="info">
-        <span id="cantidad">Buscando quizzes...</span>
+
+        <span
+            id="cantidad"
+            class="contador"
+        >
+            ⏳ Buscando quizzes...
+        </span>
+
     </div>
 
-    <div id="quizGrid" class="quiz-grid">
+
+    <!-- =========================
+         TARJETAS
+    ========================== -->
+
+    <div
+        id="quizGrid"
+        class="quiz-grid"
+    >
+
         <div class="loading">
-            ⏳ Buscando quizzes...
+
+            <span class="loading-icon">
+                🔄
+            </span>
+
+            Buscando tus quizzes...
+
         </div>
+
     </div>
+
+
+    <!-- =========================
+         PIE
+    ========================== -->
 
     <div class="footer">
-        I.E. N° 84165 "Asteria Castro Pareja"<br>
+
+        <strong>
+            I.E. N° 84165 "Asteria Castro Pareja"
+        </strong>
+
+        <br>
+
         Área de Psicología / Tutoría
+
     </div>
 
 </div>
 
+
 <script>
 
+/* ==========================================
+   DATOS DEL REPOSITORIO
+========================================== */
+
 const USUARIO = "erickmax08";
-const REPOSITORIO = "QUIZ-RETROALIMENTACION-PSIC";
+
+const REPOSITORIO =
+    "QUIZ-RETROALIMENTACION-PSIC";
+
+
+/* ==========================================
+   VARIABLES
+========================================== */
 
 let quizzes = [];
 
+
 /*
-    ARCHIVOS QUE NO DEBEN APARECER COMO QUIZ
+   ARCHIVOS QUE NO QUEREMOS MOSTRAR
 */
+
 const archivosExcluidos = [
+
     "index.html",
+
     "quiz_impresion_arreglada.html"
+
 ];
 
 
-/*
-    BUSCAR AUTOMÁTICAMENTE LOS ARCHIVOS HTML
-*/
+/* ==========================================
+   BUSCAR AUTOMÁTICAMENTE LOS HTML
+========================================== */
+
 async function cargarQuizzes(){
 
-    const grid = document.getElementById("quizGrid");
-    const cantidad = document.getElementById("cantidad");
+    const grid =
+        document.getElementById("quizGrid");
+
+    const cantidad =
+        document.getElementById("cantidad");
+
 
     try{
 
         const url =
         `https://api.github.com/repos/${USUARIO}/${REPOSITORIO}/contents/`;
 
-        const respuesta = await fetch(url);
+
+        const respuesta =
+            await fetch(url);
+
 
         if(!respuesta.ok){
-            throw new Error("No se pudo acceder al repositorio.");
+
+            throw new Error(
+                "No se pudo acceder al repositorio."
+            );
+
         }
 
-        const archivos = await respuesta.json();
 
-        const archivosHTML = archivos.filter(archivo => {
+        const archivos =
+            await respuesta.json();
 
-            return archivo.type === "file"
-                && archivo.name.toLowerCase().endsWith(".html")
-                && !archivosExcluidos.includes(
-                    archivo.name.toLowerCase()
+
+        /*
+           SOLO ARCHIVOS HTML
+        */
+
+        const archivosHTML =
+            archivos.filter(archivo => {
+
+                return (
+
+                    archivo.type === "file"
+
+                    &&
+
+                    archivo.name
+                        .toLowerCase()
+                        .endsWith(".html")
+
+                    &&
+
+                    !archivosExcluidos.includes(
+                        archivo.name.toLowerCase()
+                    )
+
                 );
 
-        });
+            });
+
 
         if(archivosHTML.length === 0){
 
             grid.innerHTML = `
+
                 <div class="no-results">
-                    <h3>📭 No hay quizzes disponibles</h3>
-                    <p>Sube un archivo HTML al repositorio.</p>
+
+                    <div style="font-size:45px;">
+                        📭
+                    </div>
+
+                    <h3>
+                        No hay quizzes disponibles
+                    </h3>
+
+                    <p>
+                        Sube un archivo HTML al repositorio.
+                    </p>
+
                 </div>
+
             `;
 
-            cantidad.textContent = "0 quizzes disponibles";
+            cantidad.innerHTML =
+                "0 quizzes disponibles";
+
             return;
+
         }
 
+
         /*
-            LEER INFORMACIÓN DE CADA QUIZ
+           LEER LOS QUIZZES
         */
 
-        quizzes = await Promise.all(
+        quizzes =
+            await Promise.all(
 
-            archivosHTML.map(async archivo => {
+                archivosHTML.map(
+                    async archivo => {
 
-                let titulo = limpiarNombre(archivo.name);
-                let grado = "Quiz de Psicología";
-                let icono = "🧠";
+                        let titulo =
+                            limpiarNombre(
+                                archivo.name
+                            );
 
-                try{
+                        let grado =
+                            "Quiz de Psicología";
 
-                    const htmlURL =
-                    `https://raw.githubusercontent.com/${USUARIO}/${REPOSITORIO}/main/${encodeURIComponent(archivo.name)}`;
+                        let icono =
+                            seleccionarIcono(
+                                archivo.name
+                            );
 
-                    const htmlRespuesta =
-                    await fetch(htmlURL);
 
-                    if(htmlRespuesta.ok){
+                        try{
 
-                        const texto =
-                        await htmlRespuesta.text();
+                            const htmlURL =
+                            `https://raw.githubusercontent.com/${USUARIO}/${REPOSITORIO}/main/${encodeURIComponent(archivo.name)}`;
 
-                        /*
-                            BUSCAR METADATOS SI EXISTEN
-                        */
 
-                        const tituloMeta =
-                        texto.match(
-                            /<meta[^>]+name=["']quiz-title["'][^>]+content=["']([^"']+)["']/i
-                        );
+                            const htmlRespuesta =
+                                await fetch(htmlURL);
 
-                        const gradoMeta =
-                        texto.match(
-                            /<meta[^>]+name=["']quiz-grade["'][^>]+content=["']([^"']+)["']/i
-                        );
 
-                        const iconoMeta =
-                        texto.match(
-                            /<meta[^>]+name=["']quiz-icon["'][^>]+content=["']([^"']+)["']/i
-                        );
+                            if(htmlRespuesta.ok){
 
-                        if(tituloMeta){
-                            titulo = tituloMeta[1];
+                                const texto =
+                                    await htmlRespuesta.text();
+
+
+                                /*
+                                   BUSCAR TÍTULO
+                                */
+
+                                const tituloMeta =
+                                    texto.match(
+                                        /<meta[^>]+name=["']quiz-title["'][^>]+content=["']([^"']+)["']/i
+                                    );
+
+
+                                /*
+                                   BUSCAR GRADO
+                                */
+
+                                const gradoMeta =
+                                    texto.match(
+                                        /<meta[^>]+name=["']quiz-grade["'][^>]+content=["']([^"']+)["']/i
+                                    );
+
+
+                                /*
+                                   BUSCAR ICONO
+                                */
+
+                                const iconoMeta =
+                                    texto.match(
+                                        /<meta[^>]+name=["']quiz-icon["'][^>]+content=["']([^"']+)["']/i
+                                    );
+
+
+                                if(tituloMeta){
+
+                                    titulo =
+                                        tituloMeta[1];
+
+                                }
+
+
+                                if(gradoMeta){
+
+                                    grado =
+                                        gradoMeta[1];
+
+                                }
+
+
+                                if(iconoMeta){
+
+                                    icono =
+                                        iconoMeta[1];
+
+                                }
+
+                            }
+
                         }
 
-                        if(gradoMeta){
-                            grado = gradoMeta[1];
+                        catch(error){
+
+                            console.log(
+                                "No se pudieron leer los metadatos:",
+                                archivo.name
+                            );
+
                         }
 
-                        if(iconoMeta){
-                            icono = iconoMeta[1];
-                        }
+
+                        return {
+
+                            nombreArchivo:
+                                archivo.name,
+
+                            titulo:
+                                titulo,
+
+                            grado:
+                                grado,
+
+                            icono:
+                                icono,
+
+                            url:
+                                archivo.name
+
+                        };
 
                     }
 
-                }catch(error){
+                )
 
-                    console.log(
-                        "No se pudieron leer los metadatos:",
-                        archivo.name
-                    );
+            );
 
-                }
 
-                return {
-                    nombreArchivo: archivo.name,
-                    titulo: titulo,
-                    grado: grado,
-                    icono: icono,
-                    url: archivo.name
-                };
+        /*
+           ORDENAR ALFABÉTICAMENTE
+        */
 
-            })
-
+        quizzes.sort(
+            (a,b) =>
+                a.titulo.localeCompare(
+                    b.titulo,
+                    "es"
+                )
         );
+
 
         mostrarQuizzes(quizzes);
 
-    }catch(error){
+    }
+
+
+    catch(error){
 
         console.error(error);
 
+
         grid.innerHTML = `
+
             <div class="error">
-                <h3>⚠️ No se pudieron cargar los quizzes</h3>
-                <p>Actualiza la página e inténtalo nuevamente.</p>
+
+                <div style="font-size:40px;">
+                    ⚠️
+                </div>
+
+                <h3>
+                    No se pudieron cargar los quizzes
+                </h3>
+
+                <p>
+                    Actualiza la página e inténtalo nuevamente.
+                </p>
+
             </div>
+
         `;
 
-        cantidad.textContent = "Error al cargar";
+
+        cantidad.innerHTML =
+            "⚠️ Error al cargar";
 
     }
 
 }
 
 
-/*
-    MOSTRAR LAS TARJETAS
-*/
+/* ==========================================
+   MOSTRAR QUIZZES
+========================================== */
 
 function mostrarQuizzes(lista){
 
-    const grid = document.getElementById("quizGrid");
-    const cantidad = document.getElementById("cantidad");
+    const grid =
+        document.getElementById("quizGrid");
 
-    cantidad.textContent =
-        `${lista.length} ${lista.length === 1 ? "quiz disponible" : "quizzes disponibles"}`;
+
+    const cantidad =
+        document.getElementById("cantidad");
+
+
+    cantidad.innerHTML =
+        `📚 ${lista.length} ${
+            lista.length === 1
+            ? "quiz disponible"
+            : "quizzes disponibles"
+        }`;
+
 
     if(lista.length === 0){
 
         grid.innerHTML = `
+
             <div class="no-results">
-                <h3>🔎 No se encontraron resultados</h3>
+
+                <div style="font-size:45px;">
+                    🔎
+                </div>
+
+                <h3>
+                    No encontramos ese quiz
+                </h3>
+
+                <p>
+                    Prueba con otro nombre.
+                </p>
+
             </div>
+
         `;
 
         return;
+
     }
 
-    grid.innerHTML = lista.map(quiz => `
 
-        <div class="quiz-card">
+    grid.innerHTML =
 
-            <div class="quiz-icon">
-                ${quiz.icono}
-            </div>
+        lista.map(
+            (quiz,index) => `
 
-            <h2>
-                ${quiz.titulo}
-            </h2>
-
-            <div class="quiz-grade">
-                ${quiz.grado}
-            </div>
-
-            <br>
-
-            <a
-                class="quiz-button"
-                href="${encodeURI(quiz.url)}"
+            <div
+                class="quiz-card"
+                style="animation-delay:${index * 0.10}s"
             >
-                ▶ COMENZAR QUIZ
-            </a>
 
-        </div>
+                <div class="quiz-icon">
 
-    `).join("");
+                    ${quiz.icono}
+
+                </div>
+
+
+                <h2>
+
+                    ${escapeHTML(
+                        quiz.titulo
+                    )}
+
+                </h2>
+
+
+                <div class="quiz-grade">
+
+                    ${escapeHTML(
+                        quiz.grado
+                    )}
+
+                </div>
+
+
+                <br>
+
+
+                <a
+                    class="quiz-button"
+                    href="${encodeURI(
+                        quiz.url
+                    )}"
+                >
+
+                    ▶ COMENZAR QUIZ
+
+                </a>
+
+            </div>
+
+        `
+
+        ).join("");
 
 }
 
 
-/*
-    BUSCADOR
-*/
+/* ==========================================
+   BUSCADOR
+========================================== */
+
+document
+    .getElementById("search")
+    .addEventListener(
+        "input",
+        filtrarQuizzes
+    );
+
 
 function filtrarQuizzes(){
 
     const texto =
-        document.getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
 
     const filtrados =
-        quizzes.filter(quiz => {
+        quizzes.filter(
+            quiz => {
 
-            return (
-                quiz.titulo.toLowerCase().includes(texto)
-                ||
-                quiz.grado.toLowerCase().includes(texto)
-                ||
-                quiz.nombreArchivo.toLowerCase().includes(texto)
-            );
+                return (
 
-        });
+                    quiz.titulo
+                        .toLowerCase()
+                        .includes(texto)
 
-    mostrarQuizzes(filtrados);
+                    ||
+
+                    quiz.grado
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    quiz.nombreArchivo
+                        .toLowerCase()
+                        .includes(texto)
+
+                );
+
+            }
+        );
+
+
+    mostrarQuizzes(
+        filtrados
+    );
 
 }
 
 
-/*
-    CONVERTIR EL NOMBRE DEL ARCHIVO EN UN TÍTULO
-    SI EL QUIZ NO TIENE METADATOS
-*/
+/* ==========================================
+   ELEGIR ICONO SEGÚN EL NOMBRE
+========================================== */
+
+function seleccionarIcono(nombre){
+
+    const texto =
+        nombre.toLowerCase();
+
+
+    if(
+        texto.includes("decidir")
+        ||
+        texto.includes("decision")
+    ){
+
+        return "🤔";
+
+    }
+
+
+    if(
+        texto.includes("enamor")
+        ||
+        texto.includes("amistad")
+    ){
+
+        return "💛";
+
+    }
+
+
+    if(
+        texto.includes("cuid")
+        ||
+        texto.includes("alcohol")
+    ){
+
+        return "🛡️";
+
+    }
+
+
+    if(
+        texto.includes("cuerpo")
+        ||
+        texto.includes("limite")
+    ){
+
+        return "🙋";
+
+    }
+
+
+    if(
+        texto.includes("respeto")
+        ||
+        texto.includes("conviv")
+    ){
+
+        return "🤝";
+
+    }
+
+
+    if(
+        texto.includes("inclus")
+    ){
+
+        return "🌈";
+
+    }
+
+
+    return "🧠";
+
+}
+
+
+/* ==========================================
+   LIMPIAR NOMBRE DEL ARCHIVO
+========================================== */
 
 function limpiarNombre(nombre){
 
     return nombre
-        .replace(/\.html$/i,"")
-        .replace(/[_-]+/g," ")
-        .replace(/\s+/g," ")
+
+        .replace(
+            /\.html$/i,
+            ""
+        )
+
+        .replace(
+            /[_-]+/g,
+            " "
+        )
+
+        .replace(
+            /\s+/g,
+            " "
+        )
+
         .trim();
 
 }
 
 
-/*
-    INICIAR
-*/
+/* ==========================================
+   SEGURIDAD PARA MOSTRAR TEXTO
+========================================== */
+
+function escapeHTML(texto){
+
+    return String(texto)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ==========================================
+   INICIAR
+========================================== */
 
 cargarQuizzes();
 
